@@ -13,7 +13,8 @@ class MenuController
         p "2 - Create an entry"
         p "3 - Search for an entry"
         p "4 - Import entries from CSV"
-        p "5 - Exit"
+        p "5 - View Entry Number n"
+        p "6 - Exit"
         print "Enter your selection: "
        
         selection = gets.to_i
@@ -37,6 +38,10 @@ class MenuController
              read_csv
              main_menu
            when 5
+             system "clear"
+             view_entry
+             main_menu
+           when 6
              p "Good-bye!"
              exit(0)
            else
@@ -44,6 +49,30 @@ class MenuController
              p "Sorry, that is not a valid input"
              main_menu
         end
+   end
+   
+   def view_entry
+      
+      record_count = @address_book.entries.count
+      
+      if record_count == 0
+        p "There are no entries in the address book at this time. Press enter to return to Main Menu"
+        gets.chomp
+        system "clear"
+      else
+        print "Enter entry number to view: "
+        selection = gets.to_i
+        if selection < record_count
+            p @address_book.entries[selection]
+            p "Press enter to return to the main menu"
+            gets.chomp
+            system "clear"
+        else
+            p "#{selection} does not exist, enter a valid number (0 through #{record_count - 1})"
+            view_entry
+        end
+      end
+        
    end
  
     def view_all_entries
