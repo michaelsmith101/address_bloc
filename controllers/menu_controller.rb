@@ -14,7 +14,8 @@ class MenuController
         p "3 - Search for an entry"
         p "4 - Import entries from CSV"
         p "5 - View Entry Number n"
-        p "6 - Exit"
+        p "6 - Nuke all entries"
+        p "7 - Exit"
         print "Enter your selection: "
        
         selection = gets.to_i
@@ -42,6 +43,10 @@ class MenuController
              view_entry
              main_menu
            when 6
+             system "clear"
+             delete_all_entries
+             main_menu
+           when 7
              p "Good-bye!"
              exit(0)
            else
@@ -49,6 +54,11 @@ class MenuController
              p "Sorry, that is not a valid input"
              main_menu
         end
+   end
+   
+   def delete_all_entries
+     @address_book.entries.clear
+     p "All entries nuked"
    end
    
    def view_entry
